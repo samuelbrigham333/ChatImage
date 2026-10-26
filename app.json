@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "NewProject",
-    "slug": "NewProject",
+    "name": "Chat About a Photo",
+    "slug": "chat-about-a-photo",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -9,6 +9,16 @@
     "ios": {
       "supportsTablet": true
     },
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow Chat About a Photo to use your camera to capture shared photos.",
+          "recordAudioAndroid": false,
+          "barcodeScannerEnabled": false
+        }
+      ]
+    ],
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",

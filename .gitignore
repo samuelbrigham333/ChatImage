@@ -31,7 +31,18 @@ yarn-error.*
 *.pem
 
 # local env files
+.env
 .env*.local
+
+# Python backend
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+backend/uploads/
+
+# Separate, uninitialized nested repository; not part of this app workspace.
+/ChatImage/
 
 # typescript
 *.tsbuildinfo
