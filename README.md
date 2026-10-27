@@ -6,7 +6,7 @@ A CS3720 Mini Project 1 mobile application for capturing and uploading photos, b
 
 - Expo/React Native single-screen app with current shared photo and live chat.
 - Camera permission handling, photo capture preview, explicit upload action, and upload status.
-- Multipart HTTP upload, an upload gallery, and image serving from FastAPI.
+- Multipart HTTP upload using the SDK-compatible Expo `File` and `expo/fetch` APIs, an upload gallery, and image serving from FastAPI.
 - WebSocket chat and synchronized photo selection, including the latest selection for new connections.
 - Bounded WebSocket reconnect retries and visible connection status.
 

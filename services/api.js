@@ -1,4 +1,7 @@
 // AI assistance: Initial implementation developed with ChatGPT/Copilot and reviewed and adapted by the student.
+import { fetch as expoFetch } from 'expo/fetch';
+import { File } from 'expo-file-system';
+
 const REQUEST_TIMEOUT_MS = 30000;
 const MAX_ERROR_BODY_LENGTH = 300;
 
@@ -53,7 +56,7 @@ async function requestJson(path, options = {}) {
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
   try {
-    const response = await fetch(`${getBackendBaseUrl()}${path}`, {
+    const response = await expoFetch(`${getBackendBaseUrl()}${path}`, {
       ...options,
       signal: controller.signal,
     });
@@ -94,9 +97,13 @@ export async function uploadPhoto(uri) {
     png: { name: `photo_${Date.now()}.png`, type: 'image/png' },
     webp: { name: `photo_${Date.now()}.webp`, type: 'image/webp' },
   };
-  const file = fileTypes[extension] || fileTypes.jpg;
+  const fileDetails = fileTypes[extension] || fileTypes.jpg;
+  const file = new File(uri);
+  if (!file.exists) {
+    throw new Error('The captured photo is no longer available on this device.');
+  }
   const form = new FormData();
-  form.append('file', { uri, name: file.name, type: file.type });
+  form.append('file', file, fileDetails.name);
   const result = await requestJson('/upload-photo', { method: 'POST', body: form });
   if (!result || typeof result.url !== 'string' || typeof result.filename !== 'string') {
     throw new Error('The server returned incomplete photo metadata.');
